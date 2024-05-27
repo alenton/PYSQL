@@ -9,75 +9,87 @@ PYSQL, is a ascii based tabulator and editor. PYSQL is completely based 2D lists
 
 # How does it work for you
 This tool uses some modules for its perfection.
-One of the important modules is **tabulate**
-The other modules are
+They are;
 
-- **tabulate**, *for converting 2d lists into table*, *[Click here to download](https://pypi.org/project/tabulate/)*
-- **argparse**, *for parsing arguments*, *[Click here to download](https://pypi.org/project/argparse/)*
-- **xlwt**, *for converting your table to .xls format*, *[Click here to download](https://pypi.org/project/xlwt/)*
-- **cryptography**, *for password protected files*, *[Click here to download](https://pypi.org/project/xlwt/)*
-- **unit_converter**, *for conversion of units*, *[Click here to download](https://pypi.org/project/unit-converter/)*
+- **tabulate**, *for converting 2d lists into table*, *[Download](https://pypi.org/project/tabulate/)*
+- **xlwt**, *for converting your table to .xls format*, *[Download](https://pypi.org/project/xlwt/)*
+- **cryptography**, *for password protected files*, *[Download](https://pypi.org/project/xlwt/)*
+- **unit_converter**, *for conversion of units*, *[Download](https://pypi.org/project/unit-converter/)*
 
-Or just install with single command: `pip install tabulate argparse xlwt cryptography unit_converter`
+Or just install with single command: `pip install tabulate xlwt cryptography unit_converter`
 
 The others are already installed one which comes  with python
 
 - **os**, *for checking if the file exists or not*
+- **argparse**, _for parsing arguments_
 - **base64**, *for encryption purposes*
 - **math**, *to replicate mathematical operations of excel [kind of]*
 - **ast**, *for converting string representation of list to list*
 
+PYSQL do not have restriction over the extensions of the file. But `.txt` is recommendable.
+# Perfect Usage guide
+There are several arguments for Pysql.
+We will get through one by one.
+Here is an complete guide:
+But first,
 Here's a sample.
 ```
-> python3 PYSQL.py -m SAMPLE.txt -f SAMPLE.txt --table
+> python3 PYSQL.py -m -f SAMPLE.txt --table
 ╒══╤══╕
 │  │  │
 ╘══╧══╛
 ```
->**Note: The `-m` argument makes the file, `-f` argument selects the file, and `--table` argument shows the data as a table. The `-m` argument create a file with `[['','']]`,Remember, the framework works with the 2D list**
+>**Note**: The `-m` argument creates the file if it's new. If it's already exist, it will give you a warning that the file already exist. 
 
+>**Note**:`-f` argument selects the file for action
 
-# Perfect Usage guide
-There are several arguments for Pysql.
-We will get through one by one.
+>**Note**: `--table` argument shows the data as a table. 
+
+>**Note**: The `-m` argument create a file with `[['','']]`,Remember, the framework works with the 2D list**
+
 
 ## **Accessing a file**
-   `python3 pysql.py -f <file-name>`
+   `python3 pysql.py -f/--file <file-name>`
 ## **Creating a file**
 You can create a new file with this command
-  `python3 pysql.py -m -f <file-name>`
-`-m` argument stands for `--make`, which obviously create an file.
-> Note: `-f` argument is still necessary.
+  `python3 pysql.py -m/--make -f/--file <file-name>`
+
+> Note: `-m` argument stands for `--make`, which obviously create an file.
 
 > Note: You could create a empty file of any extensions and type `[['','']]`, that file can also be used.
 ## **Printing the currently saved table**
 For printing the currently saved table, we use `--table` argument.
 *Ex:*
-`python3 pysql.py -f <file-name> --table`
+`python3 pysql.py -f <file-name> -t/--table`
 ## Saving the file
    
 To save the file for saving the changes, we use `--post` argument.
 
->**Note: This argument needs to be used on the command in which the change occurs. i.e., for every change `--post` argument needs to be parsed if you want to save the change.**
+>**Note: This argument needs to be used on the command in which the change occurs. i.e., for every change `--post` argument needs to be parsed _if_ you want to save the change.**
 
- 
 > **Note: Also, using without `--post` argument, acts like a preview before you save it. i.e., if you are not sure about the result, run it without the `--post` argument using `--table`. The result will be shown with the changes you have parsed. If you have verified the result, run the same command with `--post` to save it.**
 
 ## Targeting a row
-`python3 pysql.py -f <file-name> -r <row-index>`
+
 Row targeting is essential for some arguments. You can also target a range of rows using `-` symbol.
-*Ex:*
+**Syntax**:
+For single row:
+`python3 pysql.py -f <file-name> -r <row-index>`
+
+For ranged rows:
 `python3 pysql.py -f <file-name> -r <from>-<to>`
 
 ## Targeting a column
 It is similar to targeting a row. Targeting a column is used with `-c`argument.
-*Ex:*
+**Syntax:**
 `python3 pysql.py -f <file-name> -c <column-index>`
+**For ranged:**
 `python3 pysql.py -f <file-name> -c <from>-<to>`
+
 ## Adding a row
 To add a row, we should use `--add-row` argument.
 It is followed by the number of columns to be added.
-*Ex:*
+**That is:**
 `python3 pysql.py -f <file-name> --add-row 1`
 This would add 1 row to the file.
 In action:
@@ -94,12 +106,14 @@ In action:
     ╘══╧══╛
 
 ## Adding a column
-Similarly, `--add-row` argument. `--add-column` argument is just same.
+Similar to`--add-row` argument,`--add-column` argument is same.
+_No context_
 
 ## Removing a row
-Unlike `--add-row` or `--add-column`. The `--remove-row` cannot take any parameters like 1,2 or 3.
+Unlike `--add-row` or `--add-column`. The `--remove-row` cannot take any parameters. It is a Boolean argument.
 The row that needs to be removed will specified by `-r` argument.
- For ranged removing, You still can use `-r` with `-` as mentioned earlier.
+ For ranged removing, You still can use `-r` with `'-'` as mentioned earlier.
+In action:
 
     python3 PYSQL.py -f SAMPLE.txt --table
     ╒═══╕
@@ -123,7 +137,8 @@ The row that needs to be removed will specified by `-r` argument.
 
 ## Removing a column
 It is as same as `--remove-row` argument. 
-
+You should use `-c` with `--remove-column` for to work.
+_No Other Context_
 ## Inserting a row
 To Inserting a row in between two rows, we use `--insert-row` argument.
 This argument is followed by the number of the rows to be added.
@@ -247,6 +262,7 @@ In action:
     ╞═════╪═════╪═════╡
     │   1 │     │     │
     ╘═════╧═════╧═════╛
+> Note: The number of row or columns don't change when using the `--index` argument.
 
 **Headers**
 Headers are the same just like they sound.
@@ -323,20 +339,20 @@ The available styles are,
 There are three arguments for customizing your data.
 
 **Font style**
-Font style consists of 5 style,
+Font style consists of 4 style,
 
 - Bold
 - Italic
 - Underline
-- Strike through
-- Double Underline
+- Strikethrough
+
 
 To use these fonts,
 `python3 PYSQL.py --file <filename> -r <index> -c <index> --add-data <data> --font-style <style>`
 
 **Color**
 You can color your data.
-the available colors are.
+The available colors are.
 - Grey
 - Brown
 - Darkgreen
@@ -354,8 +370,10 @@ the available colors are.
 To use these color,
 `python3 PYSQL.py --file <filename> -r <index> -c <index> --add-data <data> --fg <color>`
 
+> Note: The fonts and colors are case-sensitive
+
 **Unicode**
-Unicode sometimes cannot be added into data, such that
+Unicode sometimes cannot be added into data just by using `--add-data`, such that
 `--unicode` argument is followed by the code of the Unicode you have to use along with the data.
 For example:
 `python3 PYSQL.py --file <filename> -r <index> -c <index> --add-data <data> --unicode <code>`
@@ -383,8 +401,11 @@ In action:
 ## Merging files
 Let's say you have two or more files to work with merging them manually is hard,
 so, the argument `--merge` can be used to merge multiple documents.
+There are two ways you can merge files, vertically or horizontally.
+
+**Vertically:**
 Usage:
-`python3 PYSQL.py --file <file1> --merge <file2> <file3> ...`
+`python3 PYSQL.py --file <file1> --merge <file2> <file3> ... --vertical-merge`
 In action:
 
     python3 PYSQL.py --file sample1.txt --table
@@ -407,7 +428,7 @@ In action:
     │ f4 │ f4 │
     ╘════╧════╛
     
-    python3 PYSQL.py --file sample1.txt --merge sample2.txt sample3.txt sample4.txt --table
+    python3 PYSQL.py --file sample1.txt --merge sample2.txt sample3.txt sample4.txt --table --vertical-merge
     ╒════╤════╕
     │ f1 │ f1 │
     ├────┼────┤
@@ -418,6 +439,48 @@ In action:
     │ f4 │ f4 │
     ╘════╧════╛
 Here i have merged three files with the target file.
+
+**Horizontally**
+Usage:
+`python3 PYSQL.py --file <file1> --merge <file2> <file3> ... --horizontal-merge`
+In action:
+
+    python3 PYSQL.py --file sample.txt --table
+    ╒═══╕
+    │ 1 │
+    ├───┤
+    │ 2 │
+    ├───┤
+    │ 3 │
+    ╘═══╛
+    
+    python3 PYSQL.py --file sample2.txt --table
+    ╒═══╕
+    │ 4 │
+    ├───┤
+    │ 5 │
+    ├───┤
+    │ 6 │
+    ╘═══╛
+    
+    python3 PYSQL.py --file sample3.txt --table
+    ╒═══╕
+    │ 7 │
+    ├───┤
+    │ 8 │
+    ├───┤
+    │ 9 │
+    ╘═══╛
+    
+    python3 PYSQL.py --file sample.txt --merge sample2.txt sample3.txt --horizontal-merge --table
+    ╒═══╤═══╤═══╕
+    │ 1 │ 4 │ 7 │
+    ├───┼───┼───┤
+    │ 2 │ 5 │ 8 │
+    ├───┼───┼───┤
+    │ 3 │ 6 │ 9 │
+    ╘═══╧═══╧═══╛
+
 > Note: The order of the file matters.
 
 ## Encryption and decryption using a password
@@ -934,9 +997,10 @@ There are 19 errors, which are most likely to be encountered,
 - `Erno 16`: 'The range or the index is not correctly defined for the serial numbering'
 - `Erno 17`: 'The --passwd argument is must for using --encrypt and --decrypt'
 - `Erno 18`: 'Password is incorrect for the decryption'
+- `Erno 19`: 'The file already exists'
 
 Each error will give you clue on what you might made wrong in the prompt.
-
+Along with these error, there errors with python syntax. For handling any other errors.
 If any unusual error occurs, please report us.
 
 # The End
@@ -945,4 +1009,5 @@ That was the entire quick Manuel, hope it was helpful.
 # A Thank you
 Thanks for having much patience for reading this Manuel and for using PYSQL.
 We will be happy to receive any commentary on our tool. If any inconvenience faced, report us through issues.
+
 
