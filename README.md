@@ -1000,7 +1000,7 @@ There are 19 errors, which are most likely to be encountered,
 - `Erno 19`: 'The file already exists'
 
 Each error will give you clue on what you might made wrong in the prompt.
-Along with these error, there errors with python syntax. For handling any other errors.
+Along with these error, there are errors with python syntax for handling any other errors.
 If any unusual error occurs, please report us.
 
 # The End
