@@ -131,6 +131,12 @@ __PARSER__.add_argument('--decrypt',
                         help='Action of decrypting with passwd specified by the --passwd argument, '
                              'It should not be used with other arguments except --file and --passwd',
                         action='store_true')
+__PARSER__.add_argument("--shift",
+                        help='Shift set of datas to another area.',
+                        nargs="*")
+__PARSER__.add_argument("--shift-copy",
+                        help="Shift the set of data while keeping the data as it is.",
+                        action="store_true")
 __PARSER__.add_argument('--serial-numbering',
                         help='Action of entering serial-numbers. usage: --serial-numbering '
                              '<row/column> <cell range> <number range>, the index of the row/column is specified by '
@@ -395,6 +401,69 @@ def column_embed(column, data, force_fill=False, slicing=None, reverse=False):
     except Exception as Ex:
         print(error(Ex, avatar=type(Ex).__name__))
 
+def shift(args, copy=False):
+    try:
+        global __Primary_Data__
+
+        r1 = int(args[0].split(",")[0])
+        c1 = int(args[0].split(",")[1])
+        r2 = int(args[1].split(",")[0])
+        c2 = int(args[1].split(",")[1])
+        r3 = int(args[2].split(",")[0])
+        c3 = int(args[2].split(",")[1])
+
+
+        if r1 == r2 and c1 == c2:
+            data = __Primary_Data__[r1-1][c1-1]
+            if not copy:
+                __Primary_Data__[r1-1][c1-1] = ""
+
+            __Primary_Data__[r3-1][c3-1] = data
+        elif r1 == r2 and c1 != c2:
+            data = __Primary_Data__[r1-1][c1-1:c2]
+            if not copy:
+                __Primary_Data__[r1-1][c1-1:c2] = len(data)*['']
+
+            try:
+                __Primary_Data__[r3-1][c3-1:len(data)+c3-1] = data
+            except IndexError:
+                l1 = len(__Primary_Data__[r3-1][c3-1:-1])
+                l2 = len(__Primary_Data__[r1-1][c1-1:c2])
+                c = l2 - l1
+                add_column(c)
+                __Primary_Data__[r3 - 1][c3 - 1:len(data) + c3 - 1] = data
+        elif r1 != r2 and c1 == c2:
+            data = [i[c1-1] for i in __Primary_Data__[r1-1:r2]]
+            if not copy:
+                for i in __Primary_Data__[r1-1:r2]:
+                    i[c1-1] = ""
+
+            if len(__Primary_Data__[r1-1:r2]) <= len(__Primary_Data__[r3-1:]):
+                for i,j in zip(__Primary_Data__[r3-1:len(data) + r3 - 1], data):
+                    i[c1] = j
+            else:
+                l1 = len(__Primary_Data__[r1 - 1:r2])
+                l2 = len(__Primary_Data__[r3 - 1:])
+                r = l1 - l2
+                add_row(r)
+                for i, j in zip(__Primary_Data__[r3 - 1:len(data) + r3 - 1], data):
+                    i[c1] = j
+        else:
+            data = []
+            for i in __Primary_Data__[r1-1:r2]:
+                data.append(i[c1-1:c2])
+                if not copy:
+                    i[c1-1:c2] = (c2-(c1-1))*['']
+            if len(data) > len(__Primary_Data__[r3-1:]):
+                l = len(data) - len(__Primary_Data__[r3-1:])
+                add_row(l)
+            if len(data[0]) > len(__Primary_Data__[0][c3-1:]):
+                l = len(data[0]) - len(__Primary_Data__[0][c3-1:])
+                add_column(l)
+            for i,j in zip(__Primary_Data__[r3-1:len(data)+r3-1], data):
+                i[c3-1:len(data[0])+c3-1] = j
+    except Exception as Ex:
+        print(error(Ex, avatar=type(Ex).__name__))
 
 def functional_expression(expression, syntax):
     try:
@@ -574,6 +643,7 @@ def encoding(passwd):
         print(success('The file has been successfully encrypted', avatar='Success'))
     except Exception as Ex:
         print(error(Ex, avatar=type(Ex).__name__))
+
 
 
 def decoding(passwd):
@@ -825,12 +895,16 @@ try:
     if __Dulux__.serial_numbering and __Dulux__.column:
         serial_numbering(__Dulux__.serial_numbering, int(__Dulux__.column), __Dulux__.force_sno, __Dulux__.reverse_sno)
 
+    if __Dulux__.shift:
+        shift(__Dulux__.shift, copy=__Dulux__.shift_copy)
+
     if __Dulux__.table and __Dulux__.index:
         readtbl(index=True, header=False, style=__Dulux__.style)
     elif __Dulux__.table and __Dulux__.header:
         readtbl(index=False, header=True, style=__Dulux__.style)
     elif __Dulux__.table:
         readtbl(style=__Dulux__.style)
+
     if __Dulux__.post:
         PostContent()
 except Exception as ex:
