@@ -671,7 +671,70 @@ in action:
     ├───┼───┼───┼───┼───┤
     │   │   │   │   │   │
     ╘═══╧═══╧═══╧═══╧═══╛
+## Shifting
+Shifting a range of data to another cell.
+In skeleton: `python3 PYSQL.py -f <filename> --shift <r1>,<c1> <r2>,<c2> <r3>,<c3>`
 
+Let us say that cell(r1,c1) is the top left corner of grid of data and cell(r2,c2) is the bottom left, and the cell(r3,c3) is the target cell from which the shifting starts.
+For example:
+
+    python3 PYSQL.py -t -f sample.txt
+    ╒═══╤═══╤══╤══╤══╕
+    │ 1 │ 2 │  │  │  │
+    ├───┼───┼──┼──┼──┤
+    │ 3 │ 4 │  │  │  │
+    ├───┼───┼──┼──┼──┤
+    │   │   │  │  │  │
+    ├───┼───┼──┼──┼──┤
+    │   │   │  │  │  │
+    ├───┼───┼──┼──┼──┤
+    │   │   │  │  │  │
+    ╘═══╧═══╧══╧══╧══╛
+    
+    python3 PYSQL.py -t -f sample.txt --shift 1,1 2,2 4,4
+    ╒══╤══╤══╤═══╤═══╕
+    │  │  │  │   │   │
+    ├──┼──┼──┼───┼───┤
+    │  │  │  │   │   │
+    ├──┼──┼──┼───┼───┤
+    │  │  │  │   │   │
+    ├──┼──┼──┼───┼───┤
+    │  │  │  │ 1 │ 2 │
+    ├──┼──┼──┼───┼───┤
+    │  │  │  │ 3 │ 4 │
+    ╘══╧══╧══╧═══╧═══╛
+
+Here the data present in the top left [cell(1,1) to cell(2,2)] of the table, has been shifted to the cell(4,4)
+
+If you want to copy the data, use `--shift-copy` to copy and shift.
+For example:
+
+    python3 PYSQL.py -t -f sample.txt
+    ╒═══╤═══╤══╤══╤══╕
+    │ 1 │ 2 │  │  │  │
+    ├───┼───┼──┼──┼──┤
+    │ 3 │ 4 │  │  │  │
+    ├───┼───┼──┼──┼──┤
+    │   │   │  │  │  │
+    ├───┼───┼──┼──┼──┤
+    │   │   │  │  │  │
+    ├───┼───┼──┼──┼──┤
+    │   │   │  │  │  │
+    ╘═══╧═══╧══╧══╧══╛
+    
+    python3 PYSQL.py -t -f sample.txt --shift 1,1 2,2 4,4 --shift-copy
+    ╒═══╤═══╤══╤═══╤═══╕
+    │ 1 │ 2 │  │   │   │
+    ├───┼───┼──┼───┼───┤
+    │ 3 │ 4 │  │   │   │
+    ├───┼───┼──┼───┼───┤
+    │   │   │  │   │   │
+    ├───┼───┼──┼───┼───┤
+    │   │   │  │ 1 │ 2 │
+    ├───┼───┼──┼───┼───┤
+    │   │   │  │ 3 │ 4 │
+    ╘═══╧═══╧══╧═══╧═══╛
+Such that, the data can be copied and shifted.
 ## Serial numbering
 As the name suggests, it is what it is.
 The argument `--serial-numbering` needs 3 datas.
@@ -1009,5 +1072,3 @@ That was the entire quick Manuel, hope it was helpful.
 # A Thank you
 Thanks for having much patience for reading this Manuel and for using PYSQL.
 We will be happy to receive any commentary on our tool. If any inconvenience faced, report us through issues.
-
-
