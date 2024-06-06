@@ -45,7 +45,6 @@ Here's a sample.
 
 >**Note**: `--table` argument shows the data as a table. 
 
->**Note**: The `-m` argument create a file with `[['','']]`,Remember, the framework works with the 2D list**
 
 
 ## **Accessing a file**
@@ -56,7 +55,7 @@ You can create a new file with this command
 
 > Note: `-m` argument stands for `--make`, which obviously create an file.
 
-> Note: You could create a empty file of any extensions and type `[['','']]`, that file can also be used.
+
 ## **Printing the currently saved table**
 For printing the currently saved table, we use `--table` argument.
 *Ex:*
@@ -403,7 +402,7 @@ Let's say you have two or more files to work with merging them manually is hard,
 so, the argument `--merge` can be used to merge multiple documents.
 There are two ways you can merge files, vertically or horizontally.
 
-**Vertically:**
+**Vertically**
 Usage:
 `python3 PYSQL.py --file <file1> --merge <file2> <file3> ... --vertical-merge`
 In action:
@@ -483,37 +482,6 @@ In action:
 
 > Note: The order of the file matters.
 
-## Encryption and decryption using a password
-In the PYSQL, you can encrypt and decrypt with a password you chose.
-This section has 3 arguments, 
-- `--passwd`, for assigning password
-- `--encrypt`, action of encrypting
-- `--decrypt`, action of decrypting
-
-Now,
-Usage,
-**To encrypt**
-`python3 PYSQL.py --file <file-name> --encrypt --passwd <key-phrase>`
-**To decrypt**
-`python3 PYSQL.py --file <file-name> --decrypt --passwd <key-phrase>`
-
-In action:
-
-    > cat sample1.txt
-    [['f1', 'f1'], ['f2', 'f2'], ['f3', 'f3'], ['f4', 'f4']]
-    
-    > python3 PYSQL.py --file sample1.txt --encrypt --passwd PASSWORD
-    [Success] The file has been successfully encrypted
-    
-    > cat sample1.txt
-    Z0FBQUFBQm1VZmZOQjNZUUJIUldhMXpVTjE5S3czOEwwcmlBQjg4MUdTZWdyRGFmQ3ZieVI3RlhXeGtweEJPTjYwR3B1eEVRM0huNmtfcjktSlBFdU1BTlFnZ0ZnRTB0WUF1V21VaDVhWXc4OXkwbHVORmVYLTBQaV8tUUZoYS1fZjVBOHVXTnNPWThsTVVpYnFJMmZIMF8yLXZ0VEZqLUh3PT18c1VzYmZGY2M1UU90VTBqSmFNbks4ck1FajRpb1VzR2FxbjZMOElBbFJJQT18Z0FBQUFBQm1VZmZOT21pbUlPTnhPTUE3RFhNLW1NaDAzYWV5bDZZUzNMMFptZlhSTmFBbmo5NGp1V0lnenJlQkltdjU3TTdkQWY4QTdSem9PMkVfOUcydXFqYW1qbDlrYVE9PQ==
-    
-    > python3 PYSQL.py --file sample1.txt --decrypt --passwd PASSWORD
-    [Verified] The password is verified.
-    [I] Content has been decrypted
-    
-    > cat sample1.txt
-    [['f1', 'f1'], ['f2', 'f2'], ['f3', 'f3'], ['f4', 'f4']]
 
 ##  Filling
 Let's say you have a list of things to add into a row or column, you don't have to do it manually for each cell for each data of the list.
@@ -832,7 +800,7 @@ PYSQL have in basic has 4 functions.
 
 These are numeric functions,
 Usage:
-`python3 PYSQL.py --file <file-name> --function <function> <r1> <r2> <c1> <c2> <tr> <tc>`
+`python3 PYSQL.py --file <file-name> --function <function> <r1>,<c1> <r2>,<c2> <tr>,<tc>`
 Let's say that, some number are assigned between two vertical, horizontal, or diagonal corners.
 The group of numbers can be selected using the coordinates of the corners.
 
@@ -854,12 +822,12 @@ In action:
     ╘══╧═══╧═══╧═══╧══╛
    
 In this table, the numbers are arranged from 2,2 (second row, second column) cell to 4,4 (fourth row, fourth column) cell
-In this situation, r1 = 2, r2 = 4, c1 = 2, c2 = 4.
+In this situation, r1 = 2, c1 = 2, r2 = 4, c2 = 4.
 Let's say we are going to sum all these and add the result to the cell at 1,3.
 Such that tr = 1, and tc = 3.
 So,
 
-    python3 PYSQL.py --file sample.txt --function sum 2 4 2 4 1 3 --table
+    python3 PYSQL.py --file sample.txt --function sum 2,2 4,4 1,3 --table
     ╒══╤═══╤════╤═══╤══╕
     │  │   │ 45 │   │  │
     ├──┼───┼────┼───┼──┤
@@ -873,7 +841,7 @@ So,
     ╘══╧═══╧════╧═══╧══╛
 The same with other 3 functions
 
-    python3 PYSQL.py --file sample.txt --function average 2 4 2 4 1 3 --table
+    python3 PYSQL.py --file sample.txt --function average 2,2 4,4 1,3 --table
     ╒══╤═══╤═════╤═══╤══╕
     │  │   │ 5   │   │  │
     ├──┼───┼─────┼───┼──┤
@@ -886,7 +854,7 @@ The same with other 3 functions
     │  │   │     │   │  │
     ╘══╧═══╧═════╧═══╧══╛
     
-    python3 PYSQL.py --file sample.txt --function min 2 4 2 4 1 3 --table
+    python3 PYSQL.py --file sample.txt --function min 2,2 4,4 1,3 --table
     ╒══╤═══╤═══╤═══╤══╕
     │  │   │ 1 │   │  │
     ├──┼───┼───┼───┼──┤
@@ -899,7 +867,7 @@ The same with other 3 functions
     │  │   │   │   │  │
     ╘══╧═══╧═══╧═══╧══╛
     
-    python3 PYSQL.py --file sample.txt --function max 2 4 2 4 1 3 --table
+    python3 PYSQL.py --file sample.txt --function max 2,2 4,4 1,3 --table
     ╒══╤═══╤═══╤═══╤══╕
     │  │   │ 9 │   │  │
     ├──┼───┼───┼───┼──┤
@@ -1038,32 +1006,209 @@ Converting cm to mm,
  Usage of conv expression: `"conv(str('<expression>'+'<convert from>', '<convert to>'))"`
 This conversional expression can support almost every units.
 
-# Errors you may expect:
-There are 19 errors, which are most likely to be encountered,
+## Defaults
+You can set some default values while working with your table.
+The available defaults variables and their default variables are:
 
-- `Erno 0`: 'File does not exist'
-- `Erno 1`: 'Something might have gone wrong, please check you inputs.'
-- `Erno 2`: 'The file might have been corrupted or maybe encrypted. Couldn't extract info of the file'
-- `Erno 3`: 'Either your -r/--row or -c/--column has invalid index. Please check again.'
-- `Erno 4`: 'There might be something illegal happening with that unicode you entered, please check again.'
-- `Erno 5`: 'That data cannot be converted into that type.'
-- `Erno 6`: 'The indexes are invalid'
-- `Erno 7`: 'No non-numerical characters should be included'
-- `Erno 8`: 'It is not an available function'
-- `Erno 9`: 'The files to be merged are not valid.'
-- `Erno 10`: ''Might be something wrong with the file while converting to .xls, please check it''
-- `Erno 11`: 'Using both slice_fill and force_fill is not advisable'
-- `Erno 12`: 'The first arg of --functional-positioning should be either 'row' or 'column' '
-- `Erno 13`: "Perhaps you might have not typed parenthesis for 'r' and 'c' or might missed the R"
-- `Erno 14`: 'Maybe the function need an other type inputs.'
-- `Erno 15`: 'The syntax of the expression might be invalid'
-- `Erno 16`: 'The range or the index is not correctly defined for the serial numbering'
-- `Erno 17`: 'The --passwd argument is must for using --encrypt and --decrypt'
-- `Erno 18`: 'Password is incorrect for the decryption'
-- `Erno 19`: 'The file already exists'
+- Index: False, `Whether giving index to your table at default.`
+- Header: False, `Providing header to your table.`
+- Table: False, `Printing table without providing '--table' argument.`
+- Style: fancy_grid, `Printing table at any style.`
 
-Each error will give you clue on what you might made wrong in the prompt.
-Along with these error, there are errors with python syntax for handling any other errors.
+More importantly, these are case-sensitive.
+To set these default values, `--set-default`
+> **Note:** While using `--set-default`  argument, `--post` should also be used.
+
+The syntax:
+`python3 PYSQL.py --set-default <Variable> <Values>`
+Examples:
+Table:
+
+    python3 PYSQL.py -f sample.txt --set-default Table True --post
+    ╒══╤══╕
+    │  │  │
+    ╘══╧══╛
+
+Even though `-t`  argument is not specified, the table will be printed.
+Index:
+
+    python3 PYSQL.py -f sample.txt --set-default Index True --post
+    ╒═════╤═════╤═════╕
+    │   0 │ 1   │ 2   │
+    ╞═════╪═════╪═════╡
+    │   1 │     │     │
+    ╘═════╧═════╧═════╛
+
+Headers:
+
+    python3 PYSQL.py -f sample.txt --set-default Headers True --post
+    ╒════╤════╕
+    │    │    │
+    ╞════╪════╡
+    ╘════╧════╛
+
+Style:
+
+    python3 PYSQL.py -f sample.txt --set-default Style html --post
+    <table>
+    <thead>
+    <tr></tr>
+    </thead>
+    <tbody>
+    </tbody>
+    </table>
+
+## Sublists
+A table inside of a table (to be precise).
+Sublists are set inside a specific cell.
+For setting a sublist which can be specified through `-r` and `-c`
+For example:
+
+    python3 PYSQL.py -t -f sample.txt -r 1 -c 1 --set-sub-list EXAMPLE  --post
+    ╒════════════════════╤══╕
+    │ EXAMPLE:<Sub-list> │  │
+    ├────────────────────┼──┤
+    │                    │  │
+    ├────────────────────┼──┤
+    │                    │  │
+    ╘════════════════════╧══╛
+     python3 PYSQL.py -t -f sample.txt -r 2 -c 1 --set-sub-list EXAMPLE2  --post
+    ╒═════════════════════╤══╕
+    │ EXAMPLE:<Sub-list>  │  │
+    ├─────────────────────┼──┤
+    │ EXAMPLE2:<Sub-list> │  │
+    ├─────────────────────┼──┤
+    │                     │  │
+    ╘═════════════════════╧══╛
+
+When creating a sub-list, the name of the sublist will be given by, `--set-sub-list`. To avoid confusion, the name is `:<Sub-list>`.
+To access a sublist, you need to now the index of the sublist.
+That is applied in-order to avoid confusions. That is,
+For accessing a sub-list `--access-sub-list` have to be used.
+This argument will be followed by the name of the sublist with the indexes within a parenthesis
+For example:
+
+     python3 PYSQL.py -t -f sample.txt --access-sub-list "EXAMPLE(1,1)"
+    ╒══╤══╕
+    │  │  │
+    ╘══╧══╛
+     
+
+Since the bash command line, doesn't allow any parenthesis in the prompt, the name has to be quoted.
+Of course, a sublist inside of a sublist is also possible.
+
+    python3 PYSQL.py -t -f sample.txt --access-sub-list "EXAMPLE(1,1)" --set-sub-list EXAMPLE -r 1 -c 1 -p
+    ╒════════════════════╤══╕
+    │ EXAMPLE:<Sub-list> │  │
+    ╘════════════════════╧══╛
+
+But when accessing a nested sublist, you should locate that as a path.
+Example:
+
+    python3 PYSQL.py -t -f sample.txt --access-sub-list "EXAMPLE(1,1)/EXAMPLE(1,1)"
+    ╒══╤══╕
+    │  │  │
+    ╘══╧══╛
+This is how nested Sublist works in PYSQL.
+
+## Dimensions
+Dimensions are nothing but separate tables from the primary table, while inside the same file.
+In an easy manner, multiple **unrelated** tables are inside a same file.
+This can be used by `--set-dimension` argument, followed by name of the dimension.
+The primary dimension is what created using `-m` argument.
+For example:
+
+    python3 PYSQL.py -t -f sample.txt --set-dimension Example -p
+    ╒═════════════════════╤══╕
+    │ EXAMPLE:<Sub-list>  │  │
+    ├─────────────────────┼──┤
+    │ EXAMPLE2:<Sub-list> │  │
+    ├─────────────────────┼──┤
+    │                     │  │
+    ╘═════════════════════╧══╛
+
+Nothing seems changed at all, because the dimensions can be accessed through `--access-dimension` command.
+ 
+    python3 PYSQL.py -t -f sample.txt --access-dimension Example
+    ╒══╤══╕
+    │  │  │
+    ╘══╧══╛
+Sublist can also be created in other dimensions too.
+
+## Tree
+When handling with dimensions and multiple and nested sub-lists.
+It would be very helpful to have a map to see these things,
+We can use `--tree` for doing that.
+For example:
+We been using the same file since the introduction of the sublist,
+so,
+
+    python3 PYSQL.py -f sample.txt --tree
+    PRIMARY DATA
+    ├─ EXAMPLE(1,1)
+    │  └─ EXAMPLE(1,1)
+    └─ EXAMPLE2(2,1)
+    Example [Dimension]
+    └─ Example(1,1)
+
+## Raw details
+When you want a raw and summarized detail of the file you just saved, can be  seen through `--raw-detail` argument.
+For example:
+Using this on the same file:
+
+    > python3 PYSQL.py -f sample.txt --raw-detail
+    Raw details of sample.txt:
+    Primary data <First dimension>:-
+            Primary data: [['EXAMPLE:<Sub-list>', ''], ['EXAMPLE2:<Sub-list>', ''], ['', '']]
+            Sub lists:
+                    EXAMPLE(1,1):[['EXAMPLE:<Sub-list>', '']]
+                    EXAMPLE2(2,1):[['', '']]
+                    EXAMPLE(1,1)/EXAMPLE(1,1):[['', '']]
+    Dimension Example
+            Primary data: [['Example:<Sub-list>', '']]
+            Sub lists:
+                    Example(1,1):[['', '']]
+    Defaults:
+            Index:False
+            Headers:False
+            Style:fancy_grid
+            Table:False
+
+## Encryption and decryption using a password
+In the PYSQL, you can encrypt and decrypt with your chosen password.
+This section has 3 arguments, 
+- `--passwd`, for assigning a password
+- `--encrypt`, action of encrypting
+- `--decrypt`, action of decrypting
+
+Now,
+Usage,
+**To encrypt**
+`python3 PYSQL.py --file <file-name> --encrypt --passwd <key-phrase>`
+**To decrypt**
+`python3 PYSQL.py --file <file-name> --decrypt --passwd <key-phrase>`
+
+In action:
+
+    > cat sample1.txt
+    [['f1', 'f1'], ['f2', 'f2'], ['f3', 'f3'], ['f4', 'f4']]
+    
+    > python3 PYSQL.py --file sample1.txt --encrypt --passwd PASSWORD
+    [Success] The file has been successfully encrypted
+    
+    > cat sample1.txt
+    Z0FBQUFBQm1VZmZOQjNZUUJIUldhMXpVTjE5S3czOEwwcmlBQjg4MUdTZWdyRGFmQ3ZieVI3RlhXeGtweEJPTjYwR3B1eEVRM0huNmtfcjktSlBFdU1BTlFnZ0ZnRTB0WUF1V21VaDVhWXc4OXkwbHVORmVYLTBQaV8tUUZoYS1fZjVBOHVXTnNPWThsTVVpYnFJMmZIMF8yLXZ0VEZqLUh3PT18c1VzYmZGY2M1UU90VTBqSmFNbks4ck1FajRpb1VzR2FxbjZMOElBbFJJQT18Z0FBQUFBQm1VZmZOT21pbUlPTnhPTUE3RFhNLW1NaDAzYWV5bDZZUzNMMFptZlhSTmFBbmo5NGp1V0lnenJlQkltdjU3TTdkQWY4QTdSem9PMkVfOUcydXFqYW1qbDlrYVE9PQ==
+    
+    > python3 PYSQL.py --file sample1.txt --decrypt --passwd PASSWORD
+    [Verified] The password is verified.
+    [I] Content has been decrypted
+    
+    > cat sample1.txt
+    [['f1', 'f1'], ['f2', 'f2'], ['f3', 'f3'], ['f4', 'f4']]
+
+
+Each error will give you clue on what you might have done wrong in the prompt.
+Along with these errors, there are errors with python syntax for handling any other errors.
 If any unusual error occurs, please report us.
 
 # The End
@@ -1071,4 +1216,8 @@ That was the entire quick Manuel, hope it was helpful.
 
 # A Thank you
 Thanks for having much patience for reading this Manuel and for using PYSQL.
-We will be happy to receive any commentary on our tool. If any inconvenience faced, report us through issues.
+We will be happy to receive any commentary on our tool. If any inconvenience is faced, report us through issues.
+
+
+
+
